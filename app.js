@@ -6,7 +6,10 @@ import userRouter from './routes/userRoutes.js';
 const app = express();
 
 // Middleware
-app.use(morgan('dev'));
+// console.log(process.env.NODE_ENV);
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+}
 app.use(express.json());
 //server static files - middleware
 app.use(express.static(`./public`));

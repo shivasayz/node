@@ -27,7 +27,7 @@ const checkBody = (req, res, next) => {
 
 const checkID = (req, res, next, val) => {
   console.log(`id is ${val}`);
-  if (id > tours.length) {
+  if (val > tours.length) {
     return res.status(404).json({
       status: 'failed',
       error: {
