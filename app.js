@@ -28,4 +28,19 @@ app.use((req, res, next) => {
 app.use(`/api/v1/tours`, tourRouter);
 app.use(`/api/v1/users`, userRouter);
 
+// custome route to test the nodemon
+app.use("/api/v1/welcome", (req, res) => {
+  res.status(200).json({
+    status: "success",
+    result: {
+      data: [],
+      message: "Custome route to check nodemon"
+    },
+    error: {
+      status: null,
+      message: null
+    }
+  })
+})
+
 export default app;
