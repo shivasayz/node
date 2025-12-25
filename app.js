@@ -15,10 +15,12 @@ app.use(express.json());
 //server static files - middleware
 app.use(express.static(`./public`));
 
-app.use((req, res, next) => {
-  console.log('Hello from middleware 👋');
-  next();
-});
+// app.use((req, res, next) => {
+//   console.log('Hello from middleware 👋');
+//   next();
+// });
+
+app.use(morgan('dev'));
 
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
