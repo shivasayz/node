@@ -6,7 +6,7 @@ import express from 'express';
 import morgan from 'morgan';
 import app from './app.js';
 
-// console.log(process.env.NODE_ENV); // now it will print "development"
+console.log("IN 🖥️ ",process.env.NODE_ENV); // now it will print "development"
 const db = process.env.DATABASE.replace(
   '<PASSWORD>',
   process.env.DATABASE_PASSWORD
