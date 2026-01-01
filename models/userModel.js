@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import validator from "validator";
+import bcrypt from "bcryptjs";
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -16,20 +17,34 @@ const userSchema = new mongoose.Schema({
     },
 
     password: {
-        type: password,
+        type: String,
         required: [true, "Please provide your password"],
         minlength: 8
     },
     
-    conformPassword: {
-        type: password,
-        required: [true, "Please confirm your password"]
+    confirmPassword: {
+        type: String,
+        required: [true, "Please confirm your password"],
+        validate: {
+            validator: function(el) {
+                return el === this.password
+            },
+            message: 'Password are not same!'
+        }
     },
 
     photo: {
         type: String
     },
 })
+
+userSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) return next();
+
+  this.password = await bcrypt.hash(this.password, 12);
+  this.confirmPassword = undefined;
+  next();
+});
 
 const User = mongoose.model('User', userSchema);
 export default User;
